@@ -7,6 +7,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
+// uer local .evn file
 const port = process.env.BACKEND_PORT;
 
 // get main rotes

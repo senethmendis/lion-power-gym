@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const memberSchema = new schema({
+const adminSchema = new schema({
   name: {
     type: String,
   },
@@ -16,15 +16,14 @@ const memberSchema = new schema({
     type: Number,
     required: true,
   },
-  registeredDate: {
-    type: Date,
+  password: {
+    type: String,
     required: true,
-    default: Date.now,
   },
-  accessCard: {
-    type: Boolean,
-    default: false,
+  passwordRecheck: {
+    type: String,
+    required: true,
   },
 });
 
-module.exports = mongoose.model("members", memberSchema);
+module.exports = mongoose.model("admin", adminSchema);

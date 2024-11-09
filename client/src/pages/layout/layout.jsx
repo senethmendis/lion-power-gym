@@ -1,10 +1,13 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
+import { Header } from "@/components/Header";
 
 const Layout = () => {
   return (
     <main>
       {/* header */}
+
+      <Header />
       {/* children for all the other pages */}
       <Outlet />
       {/* Footer */}

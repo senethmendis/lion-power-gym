@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="flex justify-center items-center w-full h-screen">
+    <section className="flex justify-center items-center w-full ">
       <Card className="mx-auto min-w-[360px] max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>

@@ -1,10 +1,18 @@
-import Section from "@/components/common/Section";
 import React from "react";
+import Section from "@/components/common/Section";
+import ModulerTable from "@/components/common/ModulerTable";
+import { invoices } from "@/constants";
 
 const Members = () => {
+  const tableHeads = ["Invoice", "Status", "Method", "Amount"];
+
   return (
     <Section>
-      <h2>Members</h2>
+      <ModulerTable
+        data={invoices}
+        tableHeads={tableHeads}
+        tableTitle={"Members"}
+      />
     </Section>
   );
 };

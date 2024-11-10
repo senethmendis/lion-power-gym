@@ -1,15 +1,12 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { ModeToggle } from "./ModeToggle";
+
 export const Header = () => {
   return (
-    <header>
-      <h1>Logo</h1>
+    <header className="w-full flex flex-row justify-between items-center h-20">
+      <img src="logo.png" alt="logo" className="w-8 rotate-45" />
       <nav>
-        <div className="flex items-center space-x-2">
-          <Switch id="airplane-mode" />
-          <Label htmlFor="airplane-mode">Airplane Mode</Label>
-        </div>
+        <ModeToggle />
       </nav>
     </header>
   );

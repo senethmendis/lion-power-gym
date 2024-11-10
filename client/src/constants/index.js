@@ -1,0 +1,27 @@
+export const cardDetails = [
+  {
+    title: "Total Members",
+    number: 8000,
+    description: "All the members of the community",
+  },
+  {
+    title: "Active Members",
+    number: 5600,
+    description: "Members who are currently active in the community",
+  },
+  {
+    title: "Events Organized",
+    number: 120,
+    description: "Total events organized by the community",
+  },
+  {
+    title: "Volunteers",
+    number: 150,
+    description: "Members who volunteered for various community initiatives",
+  },
+  {
+    title: "New Members This Month",
+    number: 200,
+    description: "New members who joined the community this month",
+  },
+];

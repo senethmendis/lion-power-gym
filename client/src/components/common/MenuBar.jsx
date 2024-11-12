@@ -19,7 +19,7 @@ export default function MenubarDemo() {
   return (
     <Menubar>
       <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarTrigger>Option</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
             <Link to={"/members"}>Members</Link>

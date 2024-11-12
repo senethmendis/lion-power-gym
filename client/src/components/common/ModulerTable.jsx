@@ -9,9 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { Button } from "../ui/button";
 
 export default function ModulerTable({
-  data,
+  children,
   tableHeads,
   headClassName,
   showTableFooter,
@@ -34,16 +35,7 @@ export default function ModulerTable({
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {data.map((data, i) => (
-              <TableRow key={i}>
-                <TableCell className="font-medium">{data.invoice}</TableCell>
-                <TableCell>{data.paymentStatus}</TableCell>
-                <TableCell>{data.paymentMethod}</TableCell>
-                <TableCell className="text-right">{data.totalAmount}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody>{children}</TableBody>
           {showTableFooter && (
             <TableFooter>
               <TableRow>

@@ -7,7 +7,7 @@ const DashboardCard = ({ title, numberValue, description }) => {
       <CardContent className="mt-5 flex flex-col gap-1">
         <h2 className="text-xl ">{title}</h2>
         <h1 className="text-4xl font-bold">{numberValue}</h1>
-        <p>{description}</p>
+        <p className="text-neutral-600">{description}</p>
       </CardContent>
     </Card>
   );

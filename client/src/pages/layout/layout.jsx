@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const Layout = () => {

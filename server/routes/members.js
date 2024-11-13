@@ -5,15 +5,14 @@ const {
   deleteMember,
   getAllMembers,
   getMemberById,
-  updateMembers,
+  updateMember, // Changed to singular for consistency
 } = require("../controllers/memberController");
 
-// all the routes needed for  the member
-
+// All routes for the member resource
 router.get("/", getAllMembers);
 router.post("/", createMember);
 router.get("/:id", getMemberById);
-router.put("/:id", updateMembers);
+router.put("/:id", updateMember); // Updated to match the controller function name
 router.delete("/:id", deleteMember);
 
 module.exports = router;

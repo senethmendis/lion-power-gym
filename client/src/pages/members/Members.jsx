@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
 import ModulerTable from "@/components/common/ModulerTable";
-import { useFetch } from "@/hooks/useFetch";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Members = () => {
   const tableHeads = [
@@ -19,19 +18,30 @@ const Members = () => {
     "Acton",
   ];
 
-  // const [url, setUrl] = useState();
-  const { data, error, loading } = useFetch(
-    `${import.meta.env.VITE_BASE_URL}members`
-  );
+  const [tabelData, setTableData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetTableData = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/members`);
+      setLoading(false);
+      setTableData(res.data.memberData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetTableData();
+  }, []);
 
   return (
     <Section>
       {loading && <p>Loading...</p>}
-      {error && <p>Failed to load data.</p>}
-      {data && data.data == null && <p>No data available.</p>}
 
       <ModulerTable tableHeads={tableHeads} tableTitle={"Members"}>
-        {data?.data?.map((member, i) => (
+        {tabelData?.map((member, i) => (
           <TableRow key={member._id}>
             <TableCell className="font-medium">{member.name}</TableCell>
             <TableCell>
@@ -52,10 +62,8 @@ const Members = () => {
               )}
             </TableCell>
             <TableCell>
-              <Link to={`/members/${member._id}`}>
-                <Button>
-                  <Pencil />
-                </Button>
+              <Link to={`/members/${member._id}`} className="bg-red-500">
+                <Pencil size={20} />
               </Link>
             </TableCell>
           </TableRow>

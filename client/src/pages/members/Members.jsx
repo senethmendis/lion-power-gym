@@ -19,8 +19,10 @@ const Members = () => {
     "Acton",
   ];
 
-  const [url, setUrl] = useState(import.meta.env.VITE_BASE_URL + "members");
-  const { data, error, loading } = useFetch(url);
+  // const [url, setUrl] = useState();
+  const { data, error, loading } = useFetch(
+    `${import.meta.env.VITE_BASE_URL}members`
+  );
 
   return (
     <Section>
@@ -33,7 +35,6 @@ const Members = () => {
           <TableRow key={member._id}>
             <TableCell className="font-medium">{member.name}</TableCell>
             <TableCell>
-              {" "}
               {new Date(member.birthday).toISOString().split("T")[0]}
             </TableCell>
             <TableCell>{member.age}</TableCell>

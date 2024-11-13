@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
 import { useParams } from "react-router-dom";
 import {
@@ -13,13 +13,11 @@ import { Input } from "@/components/ui/input";
 
 const EditMember = () => {
   const { id } = useParams();
-
-  const [url, setUrl] = useState(
-    import.meta.env.VITE_BASE_URL + `members/${id}`
+  const { data, error, loading } = useFetch(
+    `${import.meta.env.VITE_BASE_URL}members/${id}`
   );
-  const { data, error, loading } = useFetch(url);
 
-  console.log();
+  useEffect(() => {});
 
   return (
     <Section>
@@ -36,47 +34,7 @@ const EditMember = () => {
               id="name"
               placeholder="Name"
               disabled
-              value={data.data.name}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              type="text"
-              id="name"
-              placeholder="Name"
-              disabled
-              value={data.data.birthday}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              type="text"
-              id="name"
-              placeholder="Name"
-              disabled
-              value={data.data.age}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              type="text"
-              id="name"
-              placeholder="Name"
-              disabled
-              value={data.data.phoneNumber}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              type="text"
-              id="name"
-              placeholder="Name"
-              disabled
-              value={data.data.registeredDate}
+              value={data?.name || ""}
             />
           </div>
         </CardContent>

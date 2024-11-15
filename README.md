@@ -1,4 +1,4 @@
-# Payment Gateway  UI UX
+# Gym Member Registration System
 ![dp](https://github.com/senethmendis/lion-power-gym/blob/dev/client/public/Screenshot%202024-11-15%20221911-modified.png)
 
 ### Built With

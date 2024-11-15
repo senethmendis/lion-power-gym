@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { Button } from "../ui/button";
 
 export default function ModulerTable({
   children,
@@ -21,11 +20,11 @@ export default function ModulerTable({
   return (
     <Card>
       <CardHeader>
-        <h1>{tableTitle} </h1>
+        <h1 className="text-2xl">{tableTitle} </h1>
       </CardHeader>
       <CardContent>
         <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
+          <TableCaption>A list of your members.</TableCaption>
           <TableHeader>
             <TableRow>
               {tableHeads?.map((tableHead, i) => (

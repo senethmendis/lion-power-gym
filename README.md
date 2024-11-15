@@ -1,5 +1,5 @@
 # Payment Gateway  UI UX
-![dp](https://github.com/senethmendis/credit-card-ui-ux/blob/main/public/Screenshot%202024-11-15%20220719-modified.png)
+![dp](https://github.com/senethmendis/lion-power-gym/blob/dev/client/public/Screenshot%202024-11-15%20221911-modified.png)
 
 ### Built With
 

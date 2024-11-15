@@ -42,7 +42,7 @@ const Members = () => {
 
       <ModulerTable tableHeads={tableHeads} tableTitle={"Members"}>
         {tabelData?.map((member, i) => (
-          <TableRow key={member._id}>
+          <TableRow key={i}>
             <TableCell className="font-medium">{member.name}</TableCell>
             <TableCell>
               {new Date(member.birthday).toISOString().split("T")[0]}

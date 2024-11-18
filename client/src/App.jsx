@@ -22,4 +22,6 @@ const App = () => {
   );
 };
 
+// add initial details and fix
+
 export default App;

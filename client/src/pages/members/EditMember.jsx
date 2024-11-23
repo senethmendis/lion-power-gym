@@ -16,21 +16,22 @@ const EditMember = () => {
   const [member, setMember] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const fetchMemberData = async () => {
-    setLoading(true);
-    const res = await axios.get(
-      `${import.meta.env.VITE_BASE_URl}/members/${id}`
-    );
-    setLoading(false);
-    setMember(res.data.memberData);
-    console.log(res.data);
-  };
-
   useEffect(() => {
+    const fetchMemberData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(`http://localhost:8000/members/${id}`);
+        setMember(res.data.memberData);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Failed to fetch member data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchMemberData();
   }, [id]);
-
-  console.log(member);
 
   return (
     <Section>

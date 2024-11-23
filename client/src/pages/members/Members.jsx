@@ -62,7 +62,7 @@ const Members = () => {
               )}
             </TableCell>
             <TableCell>
-              <Link to={`/members/${member._id}`} className="bg-red-500">
+              <Link to={`/members/${member._id}/edit`} className="bg-red-500">
                 <Pencil size={20} />
               </Link>
             </TableCell>

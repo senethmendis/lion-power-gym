@@ -18,7 +18,7 @@ const EditMember = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [memberData, setMemberData] = useState({
-    accessCard: true,
+    accessCard: false,
     age: 0,
     birthday: null,
     id: "",
@@ -35,7 +35,7 @@ const EditMember = () => {
       const data = res.data[0];
       setLoading(false);
       setMemberData({
-        accessCard: true,
+        accessCard: data.accessCard,
         age: data.age,
         birthday: new Date(data.birthday).toISOString().split("T")[0],
         id: data.id,
@@ -104,8 +104,8 @@ const EditMember = () => {
               <div className="flex items-center space-x-2 my-3">
                 <Switch
                   id="access-card"
-                  checked={memberData.accessCard || false}
-                  disabled
+                  checked={memberData.accessCard}
+                  onChange={(e) => console.log(e.target.value)}
                 />
                 <Label htmlFor="access-card">Access Card</Label>
               </div>

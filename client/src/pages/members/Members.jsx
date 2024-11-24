@@ -18,56 +18,65 @@ const Members = () => {
     "Acton",
   ];
 
-  const [tabelData, setTableData] = useState(null);
+  const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetTableData = async () => {
+  const fetchMemberData = async () => {
     try {
+      const res = await axios.get("http://localhost:8000/members");
       setLoading(true);
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/members`);
+
+      setMembers(res.data);
       setLoading(false);
-      setTableData(res.data.memberData);
+      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetTableData();
+    fetchMemberData();
   }, []);
 
   return (
     <Section>
-      {loading && <p>Loading...</p>}
-
       <ModulerTable tableHeads={tableHeads} tableTitle={"Members"}>
-        {tabelData?.map((member, i) => (
-          <TableRow key={i}>
-            <TableCell className="font-medium">{member.name}</TableCell>
-            <TableCell>
-              {new Date(member.birthday).toISOString().split("T")[0]}
-            </TableCell>
-            <TableCell>{member.age}</TableCell>
-            <TableCell>{member.phoneNumber}</TableCell>
-            <TableCell>
-              {new Date(member.registeredDate).toISOString().split("T")[0]}
-            </TableCell>
-            <TableCell>
-              {member.accessCard ? (
-                <Badge variant={"outline"} className={"bg-green-600"}>
-                  Yes
-                </Badge>
-              ) : (
-                <Badge variant={"outline"}> No </Badge>
-              )}
-            </TableCell>
-            <TableCell>
-              <Link to={`/members/${member._id}/edit`} className="bg-red-500">
-                <Pencil size={20} />
-              </Link>
-            </TableCell>
-          </TableRow>
-        ))}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            {members?.map((member, i) => (
+              <TableRow key={i}>
+                <TableCell className="font-medium">{member.name}</TableCell>
+                <TableCell>
+                  {new Date(member.birthday).toISOString().split("T")[0]}
+                </TableCell>
+                <TableCell>{member.age}</TableCell>
+                <TableCell>{member.phoneNumber}</TableCell>
+                <TableCell>
+                  {new Date(member.registeredDate).toISOString().split("T")[0]}
+                </TableCell>
+                <TableCell>
+                  {member.accessCard ? (
+                    <Badge variant={"outline"} className={"bg-green-600"}>
+                      Yes
+                    </Badge>
+                  ) : (
+                    <Badge variant={"outline"}> No </Badge>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Link
+                    to={`/members/edit/${member._id}`}
+                    className="bg-red-500"
+                  >
+                    <Pencil size={20} />
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </>
+        )}
       </ModulerTable>
     </Section>
   );

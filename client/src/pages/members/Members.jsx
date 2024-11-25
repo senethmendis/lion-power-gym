@@ -23,12 +23,11 @@ const Members = () => {
 
   const fetchMemberData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/members");
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/members`);
       setLoading(true);
 
-      setMembers(res.data);
+      setMembers(res.data.memberData);
       setLoading(false);
-      console.log(res.data);
     } catch (error) {
       console.error(error);
     }

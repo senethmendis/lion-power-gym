@@ -16,10 +16,12 @@ const db = require("./db");
 // get main rotes
 const members = require("./routes/members");
 const admin = require("./routes/admin");
+const cardStatus = require("./routes/cardStatus");
 
 // user main routes
 app.use("/members", members);
 app.use("/admin", admin);
+app.use("/cardStatus", cardStatus);
 
 //test route
 app.get("/helloworld", (req, res) => {

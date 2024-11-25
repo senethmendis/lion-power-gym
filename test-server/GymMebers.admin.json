@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "67437c5855d65783319f005e"
+  },
+  "name": "Alice Johnson",
+  "birthday": "1987-05-20T00:00:00.000Z",
+  "age": 37,
+  "phoneNumber": "1234567890",
+  "password": "securePassword123",
+  "passwordRecheck": "securePassword123"
+},
+{
+  "_id": {
+    "$oid": "67437c5855d65783319f005f"
+  },
+  "name": "Bob Smith",
+  "birthday": "1991-11-15T00:00:00.000Z",
+  "age": 33,
+  "phoneNumber": "9876543210",
+  "password": "anotherSecurePass456",
+  "passwordRecheck": "anotherSecurePass456"
+}]

@@ -10,13 +10,13 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
 import axios from "axios";
-import { toDate } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 const EditMember = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [editable, setEditable] = useState(true);
   const [memberData, setMemberData] = useState({
     accessCard: false,
     age: 0,
@@ -28,11 +28,20 @@ const EditMember = () => {
     _id: "",
   });
 
+  //make editble
+
+  const makeEditable = () => {
+    setEditable(!editable);
+  };
+
   const fetchMeberById = async (id) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:8000/members?_id=${id}`);
-      const data = res.data[0];
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/members/${id}`
+      );
+
+      const data = res.data.memberData;
       setLoading(false);
       setMemberData({
         accessCard: data.accessCard,
@@ -46,7 +55,9 @@ const EditMember = () => {
           .split("T")[0],
         _id: data._id,
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -57,8 +68,15 @@ const EditMember = () => {
     <Section>
       <Card>
         <CardHeader>
-          <h1 className="text-2xl">Edit Member Details</h1>
-          <CardDescription>User Id : {id}</CardDescription>
+          <section className="flex w-full justify-between">
+            <div>
+              <h1 className="text-2xl">Edit Member Details</h1>
+              <CardDescription>User Id : {id}</CardDescription>
+            </div>
+            <div>
+              <Button onClick={makeEditable}>Edit</Button>
+            </div>
+          </section>
         </CardHeader>
         {loading ? (
           <p>Loading .... </p>
@@ -76,7 +94,7 @@ const EditMember = () => {
                   placeholder="Name"
                   value={memberData.name || ""}
                   onChange={(e) => console.log(e.target.value)}
-                  disabled
+                  disabled={editable}
                 />
               </div>
               <div className="grid w-full max-w-sm items-center gap-2">
@@ -87,7 +105,7 @@ const EditMember = () => {
                   placeholder="Name"
                   value={memberData.age || ""}
                   onChange={(e) => console.log(e.target.value)}
-                  disabled
+                  disabled={editable}
                 />
               </div>
               <div className="grid w-full max-w-sm items-center gap-2">
@@ -98,7 +116,7 @@ const EditMember = () => {
                   placeholder="Name"
                   value={memberData.phoneNumber || ""}
                   onChange={(e) => console.log(e.target.value)}
-                  disabled
+                  disabled={editable}
                 />
               </div>
               <div className="flex items-center space-x-2 my-3">
@@ -106,6 +124,7 @@ const EditMember = () => {
                   id="access-card"
                   checked={memberData.accessCard}
                   onChange={(e) => console.log(e.target.value)}
+                  disabled={editable}
                 />
                 <Label htmlFor="access-card">Access Card</Label>
               </div>
@@ -120,7 +139,7 @@ const EditMember = () => {
                   className="p-2 rounded-sm"
                   onChange={(e) => console.log(e.target.value)}
                   value={memberData.birthday || new Date()}
-                  disabled
+                  disabled={editable}
                 />
               </div>
               <div className="grid w-full max-w-sm items-center gap-2">
@@ -132,7 +151,7 @@ const EditMember = () => {
                   className="p-2 rounded-sm"
                   onChange={(e) => console.log(e.target.value)}
                   value={memberData.birthday || new Date()}
-                  disabled
+                  disabled={editable}
                 />
               </div>
             </form>

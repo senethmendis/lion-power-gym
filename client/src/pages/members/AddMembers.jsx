@@ -7,14 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import useGetMemberById from "@/hooks/useGetMemberById";
 
-const EditMember = () => {
+const addMembers = () => {
 	const { id } = useParams();
 
 	const [editable, setEditable] = useState(true);
-	const [memberData, IsLoading] = useGetMemberById({ id });
 
+	const memberData = [];
 	// {
 	// 	accessCard: false,
 	// 	age: 0,
@@ -145,4 +144,4 @@ const EditMember = () => {
 	);
 };
 
-export default EditMember;
+export default addMembers;

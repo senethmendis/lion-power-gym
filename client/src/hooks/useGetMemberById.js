@@ -2,28 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useGetMemberById = ({ id }) => {
-  const [member, setMember] = useState({});
-  const [loading, setLoading] = useState(false);
+	const [member, setMember] = useState({});
+	const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/members/${id}`
-        );
-        // console.log(res.data);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/members/${id}`);
+				// console.log(res.data);
 
-        setLoading(false);
-        setMember(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+				setLoading(false);
+				setMember(res.data.memberData);
+			} catch (error) {
+				console.error(error);
+			}
+		};
 
-    fetchData();
-  }, []);
+		fetchData();
+	}, []);
 
-  return [member, loading];
+	return [member, loading];
 };
 export default useGetMemberById;

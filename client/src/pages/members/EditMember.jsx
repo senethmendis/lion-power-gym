@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Section from "@/components/common/Section";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
@@ -104,8 +104,11 @@ const EditMember = () => {
 									className="p-2 rounded-sm"
 									onChange={(e) => console.log(e.target.value)}
 									value={
-										memberData.birthday && !isNaN(new Date(memberData.birthday).getTime())
-											? new Date(memberData.birthday).toISOString().split("T")[0]
+										memberData.birthday &&
+										!isNaN(new Date(memberData.birthday).getTime())
+											? new Date(memberData.birthday)
+													.toISOString()
+													.split("T")[0]
 											: ""
 									}
 									disabled={editable}
@@ -120,8 +123,11 @@ const EditMember = () => {
 									className="p-2 rounded-sm"
 									onChange={(e) => console.log(e.target.value)}
 									value={
-										memberData.birthday && !isNaN(new Date(memberData.birthday).getTime())
-											? new Date(memberData.birthday).toISOString().split("T")[0]
+										memberData.birthday &&
+										!isNaN(new Date(memberData.birthday).getTime())
+											? new Date(memberData.birthday)
+													.toISOString()
+													.split("T")[0]
 											: ""
 									}
 									disabled={editable}

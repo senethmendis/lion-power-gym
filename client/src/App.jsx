@@ -35,7 +35,7 @@ const App = () => {
 						element={<EditMember />}
 					/>
 					<Route
-						path="/members/addMembers"
+						path="/members/add"
 						element={<AddMembers />}
 					/>
 				</Route>

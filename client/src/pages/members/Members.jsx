@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import useGetMemberList from "@/hooks/useGetMembersList";
+import { Button } from "@/components/ui/button";
 
 const Members = () => {
 	const tableHeads = [
@@ -23,13 +24,21 @@ const Members = () => {
 
 	return (
 		<Section>
+			<Link
+				to={"/members/add"}
+				className="p-3 bg-red-500 w-32 rounded-md">
+				Add Members
+			</Link>
+
 			<ModulerTable
 				tableHeads={tableHeads}
 				tableTitle={"Members"}>
 				{members.memberData?.map((member, i) => (
 					<TableRow key={i}>
 						<TableCell className="font-medium">{member.name}</TableCell>
-						<TableCell>{new Date(member.birthday).toISOString().split("T")[0]}</TableCell>
+						<TableCell>
+							{new Date(member.birthday).toISOString().split("T")[0]}
+						</TableCell>
 						<TableCell>{member.age}</TableCell>
 						<TableCell>{member.phoneNumber}</TableCell>
 						<TableCell>

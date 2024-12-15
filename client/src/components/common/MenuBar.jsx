@@ -28,7 +28,7 @@ export default function MenubarDemo() {
 						<Link to={"/equipments"}>Equipments</Link>
 					</MenubarItem>
 					<MenubarItem>
-						<Link to={"/addMember"}>Add Member</Link>
+						<Link to={"/add"}>Add Member</Link>
 					</MenubarItem>
 
 					<MenubarSeparator />

@@ -1,147 +1,103 @@
 import React, { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
 import { useParams } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import useCreateMember from "@/hooks/useCreateMember";
+import { Loader2 } from "lucide-react";
 
-const addMembers = () => {
-	const { id } = useParams();
-
-	const [editable, setEditable] = useState(true);
-
-	const memberData = [];
-	// {
-	// 	accessCard: false,
-	// 	age: 0,
-	// 	birthday: null,
-	// 	id: "",
-	// 	name: "",
-	// 	phoneNumber: "",
-	// 	registeredDate: "",
-	// 	_id: "",
-	// }in
-
-	const makeEditable = () => {
-		setEditable(!editable);
+const AddMembers = () => {
+	const payLoad = {
+		MemberName: "",
+		MemberBirthday: "",
+		MemberAge: "",
+		MemberPhoneNumber: "",
 	};
+	const { makeRequest, member, loading } = useCreateMember(
+		import.meta.env.VITE_BASE_URL + "/members"
+	);
+	const [isLoading, setIsLoading] = useState(false);
+	const { register, handleSubmit } = useForm({
+		defaultValues: payLoad,
+	});
 
 	return (
 		<Section>
-			<Card>
+			<Card className="max-w-[400px]">
 				<CardHeader>
-					<section className="flex w-full justify-between">
-						<div>
-							<h1 className="text-2xl">Edit Member Details</h1>
-							<CardDescription>User Id : {id}</CardDescription>
-						</div>
-						<div>
-							<Button onClick={makeEditable}>Edit</Button>
-						</div>
-					</section>
+					<CardTitle>Add Member Details</CardTitle>
+					<CardDescription>fill in details for members</CardDescription>
 				</CardHeader>
-				{IsLoading ? (
-					<p>Loading .... </p>
-				) : (
-					<CardContent>
-						<form
-							onSubmit={() => console.log("form submit")}
-							className="grid gap-3">
-							<div className="grid w-full max-w-sm items-center gap-2">
-								<Label htmlFor="name">Name</Label>
-								<Input
-									type="text"
-									id="name"
-									placeholder="Name"
-									value={memberData.name || ""}
-									onChange={(e) => console.log(e.target.value)}
-									disabled={editable}
-								/>
-							</div>
-							<div className="grid w-full max-w-sm items-center gap-2">
-								<Label htmlFor="age">Age</Label>
-								<Input
-									type="text"
-									id="age"
-									placeholder="age"
-									value={memberData.age || ""}
-									onChange={(e) => console.log(e.target.value)}
-									disabled={editable}
-								/>
-							</div>
-							<div className="grid w-full max-w-sm items-center gap-2">
-								<Label htmlFor="phone">Phone Number</Label>
-								<Input
-									type="tel"
-									id="phone"
-									placeholder="phone"
-									value={memberData.phoneNumber || ""}
-									onChange={(e) => console.log(e.target.value)}
-									disabled={editable}
-								/>
-							</div>
-							<div className="flex items-center space-x-2 my-3">
-								<Switch
-									id="access-card"
-									checked={memberData.accessCard}
-									onChange={(e) => console.log(e.target.value)}
-									disabled={editable}
-								/>
-								<Label htmlFor="access-card">Access Card</Label>
-							</div>
 
-							{/* calender component */}
-							<div className="grid w-full max-w-sm items-center gap-2">
-								<Label htmlFor="birthday">Birthday</Label>
-								<input
-									type="date"
-									id="birthday"
-									name="birthday"
-									className="p-2 rounded-sm"
-									onChange={(e) => console.log(e.target.value)}
-									value={
-										memberData.birthday && !isNaN(new Date(memberData.birthday).getTime())
-											? new Date(memberData.birthday).toISOString().split("T")[0]
-											: ""
-									}
-									disabled={editable}
-								/>
-							</div>
-							<div className="grid w-full max-w-sm items-center gap-2">
-								<Label htmlFor="birthday">Registerded Date</Label>
-								<input
-									type="date"
-									id="birthday"
-									name="birthday"
-									className="p-2 rounded-sm"
-									onChange={(e) => console.log(e.target.value)}
-									value={
-										memberData.birthday && !isNaN(new Date(memberData.birthday).getTime())
-											? new Date(memberData.birthday).toISOString().split("T")[0]
-											: ""
-									}
-									disabled={editable}
-								/>
-							</div>
-							{!editable && (
-								<div className="grid w-full grid-cols-2 max-w-sm items-center gap-4 mt-10">
-									<Button type={"submit"}>Save</Button>
-									<Button
-										type={"reset"}
-										variant="outline">
-										Clear
-									</Button>
-								</div>
-							)}
-						</form>
-					</CardContent>
-				)}
+				<CardContent>
+					<form
+						onSubmit={handleSubmit(async (data) => {
+							await makeRequest({
+								name: data.MemberName,
+								birthday: data.MemberBirthday,
+								age: data.MemberAge,
+								phoneNumber: data.MemberPhoneNumber,
+							});
+							setIsLoading(false);
+						})}
+						className="flex flex-col gap-3">
+						<Input
+							type="text"
+							placeholder="Member Name"
+							{...register("MemberName", {
+								required: "Member name required!",
+							})}
+						/>
+						<Input
+							type="date"
+							placeholder="BOD"
+							{...register("MemberBirthday", {
+								required: "Birthday required!",
+							})}
+						/>
+						<Input
+							type="number"
+							placeholder="Age"
+							{...register("MemberAge", {
+								required: "Age required!",
+							})}
+						/>
+						<Input
+							type="tel"
+							placeholder="Phone Number"
+							{...register("MemberPhoneNumber", {
+								required: "Phone Number required!",
+							})}
+						/>
+						<Button type="submit">
+							{" "}
+							{isLoading ? (
+								<Loader2 className="animate-spin" />
+							) : (
+								"Add"
+							)}{" "}
+						</Button>
+						<Button
+							type="reset"
+							variant="outline">
+							Clear
+						</Button>
+					</form>
+				</CardContent>
 			</Card>
 		</Section>
 	);
 };
 
-export default addMembers;
+export default AddMembers;

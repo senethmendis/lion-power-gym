@@ -8,26 +8,37 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import useGetMemberById from "@/hooks/useGetMemberById";
+import { LogError } from "concurrently";
+import { useForm } from "react-hook-form";
 
 const EditMember = () => {
+	const { register, handleSubmit } = useForm();
 	const { id } = useParams();
 
 	const [editable, setEditable] = useState(true);
 	const [memberData, IsLoading] = useGetMemberById({ id });
-
-	// {
-	// 	accessCard: false,
-	// 	age: 0,
-	// 	birthday: null,
-	// 	id: "",
-	// 	name: "",
-	// 	phoneNumber: "",
-	// 	registeredDate: "",
-	// 	_id: "",
-	// }in
+	const [updateLoading, setUpdateLoading] = useState(false);
 
 	const makeEditable = () => {
 		setEditable(!editable);
+	};
+
+	const updateEdits = () => {
+		updateLoading(true);
+		axios
+			.put(`${import.meta.env.VITE_BASE_URL}/members/${id}`, {
+				name: "tes put api",
+				birthday: "1991-11-15T00:00:00.000Z",
+				age: 33,
+				phoneNumber: "9876543210",
+			})
+			.then((res) => {
+				setUpdateLoading(false);
+				console.log(res.data);
+			})
+			.catch((e) => {
+				console.error(e);
+			});
 	};
 
 	return (

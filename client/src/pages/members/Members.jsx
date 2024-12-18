@@ -10,7 +10,7 @@ import useGetMemberList from "@/hooks/useGetMembersList";
 import { Button } from "@/components/ui/button";
 
 const Members = () => {
-	const tableHeads = [
+	const TABLE_HEADS = [
 		"Name",
 		"BOD",
 		"Age",
@@ -31,7 +31,7 @@ const Members = () => {
 			</Link>
 
 			<ModulerTable
-				tableHeads={tableHeads}
+				tableHeads={TABLE_HEADS}
 				tableTitle={"Members"}>
 				{members.memberData?.map((member, i) => (
 					<TableRow key={i}>

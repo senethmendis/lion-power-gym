@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import useGetMemberById from "@/hooks/useGetMemberById";
-import { LogError } from "concurrently";
+
 import { useForm } from "react-hook-form";
 
 const EditMember = () => {
@@ -21,24 +21,6 @@ const EditMember = () => {
 
 	const makeEditable = () => {
 		setEditable(!editable);
-	};
-
-	const updateEdits = () => {
-		updateLoading(true);
-		axios
-			.put(`${import.meta.env.VITE_BASE_URL}/members/${id}`, {
-				name: "tes put api",
-				birthday: "1991-11-15T00:00:00.000Z",
-				age: 33,
-				phoneNumber: "9876543210",
-			})
-			.then((res) => {
-				setUpdateLoading(false);
-				console.log(res.data);
-			})
-			.catch((e) => {
-				console.error(e);
-			});
 	};
 
 	return (
@@ -60,7 +42,7 @@ const EditMember = () => {
 				) : (
 					<CardContent>
 						<form
-							onSubmit={() => console.log("form submit")}
+							onSubmit={() => updateEdits(id)}
 							className="grid gap-3">
 							<div className="grid w-full max-w-sm items-center gap-2">
 								<Label htmlFor="name">Name</Label>
@@ -100,7 +82,7 @@ const EditMember = () => {
 									id="access-card"
 									checked={memberData.accessCard}
 									onChange={(e) => console.log(e.target.value)}
-									disabled={editable}
+									// disabled={editable}
 								/>
 								<Label htmlFor="access-card">Access Card</Label>
 							</div>
@@ -129,19 +111,21 @@ const EditMember = () => {
 								<Label htmlFor="birthday">Registerded Date</Label>
 								<input
 									type="date"
-									id="birthday"
-									name="birthday"
+									id="registeredDate"
+									name="registeredDate"
 									className="p-2 rounded-sm"
 									onChange={(e) => console.log(e.target.value)}
 									value={
-										memberData.birthday &&
-										!isNaN(new Date(memberData.birthday).getTime())
-											? new Date(memberData.birthday)
+										memberData.registeredDate &&
+										!isNaN(
+											new Date(memberData.registeredDate).getTime()
+										)
+											? new Date(memberData.registeredDate)
 													.toISOString()
 													.split("T")[0]
 											: ""
 									}
-									disabled={editable}
+									disabled={true}
 								/>
 							</div>
 							{!editable && (

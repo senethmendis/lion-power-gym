@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/menubar";
 import { Link } from "react-router-dom";
 
-export default function MenubarDemo() {
+const MenubarDemo = () => {
 	return (
 		<Menubar>
 			<MenubarMenu>
@@ -30,4 +30,5 @@ export default function MenubarDemo() {
 			</MenubarMenu>
 		</Menubar>
 	);
-}
+};
+export default MenubarDemo;

@@ -81,12 +81,7 @@ const AddMembers = () => {
 							})}
 						/>
 						<Button type="submit">
-							{" "}
-							{isLoading ? (
-								<Loader2 className="animate-spin" />
-							) : (
-								"Add"
-							)}{" "}
+							{isLoading ? <Loader2 className="animate-spin" /> : "Add"}
 						</Button>
 						<Button
 							type="reset"

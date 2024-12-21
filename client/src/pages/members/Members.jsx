@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
 import ModulerTable from "@/components/common/ModulerTable";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +20,24 @@ const Members = () => {
 		"Acton",
 	];
 
-	const [members, loading] = useGetMemberList();
+	const [members, loading, fetchMembersData] = useGetMemberList();
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleDeleteMembers = async (id) => {
+		setIsLoading(true);
+		try {
+			const res = await axios.delete(
+				`${import.meta.env.VITE_BASE_URL}/members/${id}`
+			);
+			console.log(`${id} deleted`);
+
+			setIsLoading(false);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			fetchMembersData();
+		}
+	};
 
 	return (
 		<Section>
@@ -55,12 +72,19 @@ const Members = () => {
 								<Badge variant={"outline"}> No </Badge>
 							)}
 						</TableCell>
-						<TableCell>
-							<Link
-								to={`/members/edit/${member._id}`}
-								className="bg-red-500">
+						<TableCell className="flex items-center gap-2">
+							<Link to={`/members/edit/${member._id}`}>
 								<Pencil size={20} />
 							</Link>
+							<Button
+								variant={"outline"}
+								onClick={() => handleDeleteMembers(member._id)}>
+								{isLoading ? (
+									<Loader2 className="animate-spin" />
+								) : (
+									<Trash2 />
+								)}
+							</Button>
 						</TableCell>
 					</TableRow>
 				))}

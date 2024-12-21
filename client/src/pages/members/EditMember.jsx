@@ -34,6 +34,11 @@ const EditMember = () => {
 						</div>
 						<div>
 							<Button onClick={makeEditable}>Edit</Button>
+							<Button
+								className="ml-3"
+								variant="outline">
+								Delete
+							</Button>
 						</div>
 					</section>
 				</CardHeader>

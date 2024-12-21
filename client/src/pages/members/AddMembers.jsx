@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import useCreateMember from "@/hooks/useCreateMember";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const AddMembers = () => {
 	const payLoad = {
@@ -24,12 +25,13 @@ const AddMembers = () => {
 		MemberAge: "",
 		MemberPhoneNumber: "",
 	};
+	const [payLoadData, setPayLoadData] = useState(payLoad);
 	const { makeRequest, member, loading } = useCreateMember(
 		import.meta.env.VITE_BASE_URL + "/members"
 	);
 	const [isLoading, setIsLoading] = useState(false);
 	const { register, handleSubmit } = useForm({
-		defaultValues: payLoad,
+		defaultValues: payLoadData,
 	});
 
 	return (
@@ -43,13 +45,24 @@ const AddMembers = () => {
 				<CardContent>
 					<form
 						onSubmit={handleSubmit(async (data) => {
-							await makeRequest({
-								name: data.MemberName,
-								birthday: data.MemberBirthday,
-								age: data.MemberAge,
-								phoneNumber: data.MemberPhoneNumber,
-							});
-							setIsLoading(false);
+							setIsLoading(true);
+							try {
+								await makeRequest({
+									name: data.MemberName,
+									birthday: data.MemberBirthday,
+									age: data.MemberAge,
+									phoneNumber: data.MemberPhoneNumber,
+								});
+								toast("New Member created.");
+
+								console.log(data, "added");
+							} catch (error) {
+								toast("Failed to add a member try again.");
+								console.error(error);
+							} finally {
+								setIsLoading(false);
+								setPayLoadData(payLoad);
+							}
 						})}
 						className="flex flex-col gap-3">
 						<Input
